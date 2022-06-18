@@ -4,7 +4,7 @@ import pickle
 
 from tqdm import tqdm
 
-def get_shuffle_idx(person_num = 60, set_num = 7500, same_ration = .4): 
+def get_shuffle_idx(person_num = 60, set_num = 20000, same_ration = .4): 
     idx_stack = []
 
     rand_index = lambda: randint(0, person_num - 1) * 10 + randint(0, 9)
@@ -50,13 +50,13 @@ def stack2set(dataset, stack):
 
 
 if __name__ == "__main__": 
-    idxes = get_shuffle_idx()
+    idxes = get_shuffle_idx(60, 20000, .5)
     with open("VGGvectors/PubTrain.bin", "rb") as f: 
         data = pickle.load(f)
     with open("VGGvectors/train.bin", "wb") as f: 
         pickle.dump(stack2set(data, idxes), f)
     
-    idxes = get_shuffle_idx(140, 2500, .6)
+    idxes = get_shuffle_idx(140, 5000, .4)
     with open("VGGvectors/PubEval.bin", "rb") as f: 
         data = pickle.load(f)
     with open("VGGvectors/eval.bin", "wb") as f: 
