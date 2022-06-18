@@ -1,0 +1,7 @@
+PubFig Public Figures Face Database
+The PubFig database is a large, real-world face dataset consisting of 58,797 images of 200 people collected from the internet. Unlike most other existing face datasets, these images are taken in completely uncontrolled situations with non-cooperative subjects.
+
+
+link
+http://www.cs.columbia.edu/CAVE/databases/pubfig/
+http://www.cs.columbia.edu/CAVE/databases/pubfig/download/
