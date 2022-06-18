@@ -7,6 +7,7 @@
 ## 数据集简介
 PibFig数据集的简介如下：
 > The PubFig database is a large, real-world face dataset consisting of 58,797 images of 200 people collected from the internet. Unlike most other existing face datasets, these images are taken in completely uncontrolled situations with non-cooperative subjects. 
+
 PibFig数据集的具体指标如下：
 - 数据集用途：人脸识别、人脸目标检测等
 - 数据集呈现形式：图片来源url
@@ -19,7 +20,7 @@ PibFig数据集的具体指标如下：
 - 数据集大小：
   - 训练集：60人-共16336张图片
   - 测试集：140人-共42461张图片
-原生数据集相关文件详见[原生数据文件夹`./dataset/PubFig`](./dataset/PubFig)，[原数据集官网](https://www.cs.columbia.edu/CAVE/databases/pubfig/download/)
+原生数据集相关文件详见[原生数据文件夹`./dataset/PubFig`](./dataset/PubFig)及[原数据集官网](https://www.cs.columbia.edu/CAVE/databases/pubfig/download/)
 
 ## 数据集压缩
 针对于本项目所要完成的人脸认证任务，我们对数据集进行了如下筛选：
