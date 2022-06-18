@@ -37,7 +37,9 @@ def train():
     p = lambda x: model.predict(x)
 
     acc1 = evaluate(xt, yt, p)
+    begin = time()
     acc2 = evaluate(xe, ye, p)
+    print("\n运行时间: %.2fs\n" %(time() - begin))
     print("\nTraining Acc.: %.2f" %(acc1 * 100, ) + '%' + '\n')
     print("\nValidating Acc.: %.2f" %(acc2 * 100, ) + '%' + '\n')
     
@@ -66,6 +68,5 @@ def vec2cat(arr):
 if __name__ == "__main__": 
     begin = time()
     plc = train()
-    print("\nRunning Time: %.2fs\n" %(time() - begin))
 
     plc.save(file_name)

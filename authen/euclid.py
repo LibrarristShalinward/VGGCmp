@@ -1,5 +1,6 @@
 from data_get import get_data
 import numpy as np
+from time import time
 
 xt, yt, xe, ye = get_data()
 n = 2622
@@ -24,11 +25,14 @@ for i in range(len(d_j)):
 threshold = (d_j[th, 0] + d_j[th + 1, 0]) / 2
 print("欧氏距离方法阈值为%.4f" %(threshold))
 
+begin = time()
+    
 error_c = 0
 for i, j in zip(xe, ye): 
     d = np.linalg.norm(i[:n] - i[n:])
     judge = 1 if d < threshold else 0
     if j[0] != judge: 
         error_c += 1
+print("\n运行时间: %.2fs\n" %(time() - begin))
 
 print("欧氏距离方法准确率为%.2f%%" %((1 - error_c / len(xe)) * 100))

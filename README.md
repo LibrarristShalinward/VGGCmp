@@ -123,4 +123,21 @@ PibFig数据集的具体指标如下：
    python vec_shuffle.py
    ```
    训练集与测试集将分别保存在`./dataset/VGGvectors/train.bin`与``./dataset/VGGvectors/eval.bin``
-   
+
+# 嵌入空间向量对分析
+在本项目中，采用了阈值判定、SVM二分类与MLP二分类三种方案来实现。其准确率与运行时间如下表所示
+|方法|准确率（测试集）|运行时间（5000组数据，不含VGGFace运行）|
+|:--:|:--:|:--:|
+|欧氏空间距离|43.92%|0.05s|
+|SVM|41.88%|0.15s|
+|MLP|74.78%|0.77s|
+
+其中，MLP网络结构如下：
+![](./附图/mlp.h5.png)
+复现上述模型训练过程的命令为（主文件夹下）：
+```
+python authen/euclid.py
+python authen/svm.py
+python authen/mlp.py
+```
+其中mlp训练将自动导出命名为日期与时间的`.h5`模型。已训练好的模型见`./authen/mlp.h5`。
