@@ -1,1 +1,3 @@
 dataset/PubFig/pubfig_attributes.txt
+dataset/train/*.jpg
+dataset/eval/*.jpg
