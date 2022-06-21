@@ -1,10 +1,22 @@
 # VGGCmp
- 基于VGGFace实现的人脸识别认证网络
+本项目以VGGFace为基础构建了一个用于实现面部特征认证的二分类网络。项目的核心工作在于，立足于VGGFace所采用的度量学习方法造成的缺陷，构建了一个鲁棒性更强的、根据VGGFace产生的特征向量（或嵌入空间向量）实现面部信息比对的全连接网络。
 
-# VGGFace
+# 运行环境
+代码环境：
+- Win10
+- Python 3.7.9
+
+安装python依赖（详见[`requirements`](requirements)）
+```
+pip install requirements
+```
+
+# 实现基础：VGGFace
 VGGFace是牛津大学视觉几何团队联合Google在其先前开发的图像分类网络VGGNet的基础上设计的面部图像分类算法。该算法的创新点主要有二：其一是VGGFace继承了VGGNet在图像分类领域的优秀表现，其二是将度量学习（metric learning）的思想应用于面部特征的比较判定。VGGFace网络在其所采用的两个数据集（LFW-Labeled Faces in the Wild与YFD-YouTube Faces Dataset）上均取得了97%以上的正确率。
 ![](./附图/VGGFaceAcc.png)
 （图片来源：[牛津大学VGG Face Descriptor官网](https://www.robots.ox.ac.uk/~vgg/software/vgg_face/)）
+（本项目中的VGGFace的keras实现来自[https://github.com/rcmalli/keras-vggface.git](https://github.com/rcmalli/keras-vggface.git)）
+
 
 ## VGGNet
 VGGNet是一套由AlexNet发展而来的网络，该套网络中具有最佳表现的是分别有16和19个可训练层的VGGNet16与VGGNet19。值得一提的是，该网络获得了2014年ILSVRC竞赛的亚军（当年冠军为GoogleNet）。VGGNet体系下各网络的结构及参数规模如下：

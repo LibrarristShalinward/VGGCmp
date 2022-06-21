@@ -1,4 +1,3 @@
-from email import policy
 from data_get import get_data
 import numpy as np
 from sklearn.svm import LinearSVC
