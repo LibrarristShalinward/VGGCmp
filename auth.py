@@ -17,7 +17,7 @@ im2 = image.img_to_array(im2)
 x = np.array(get_VGG_vector(im1) + get_VGG_vector(im2))
 x = np.expand_dims(x, axis = 0)
 
-model = load_model("./authen/mlp.h5")
+model = load_model("./authen/G3.h5")
 y = model.predict(x)[0]
 
 print("匹配度为%.4f%%" %(y[0] * 100.))

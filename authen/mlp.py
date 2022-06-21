@@ -1,5 +1,6 @@
 from keras.layers import Dense, Input, Dropout
 from keras.models import Model
+from keras.callbacks import EarlyStopping
 # from keras.optimizers import Adam
 import numpy as np
 from data_get import get_data
@@ -7,6 +8,18 @@ from time import time
 import datetime as d
 
 file_name = "./authen/" + d.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "_mlp.h5"
+# mlp_struct = [2] # 网络O
+# mlp_struct = [8, 2] # 网络G1
+# mlp_struct = [16, 2] # 网络G2
+# mlp_struct = [64, 2] # 网络G3
+# mlp_struct = [256, 2] # 网络G4
+# mlp_struct = [1024, 2] # 网络G5
+# mlp_struct = [64, 64, 2] # 网络A1
+# mlp_struct = [64, 64, 64, 2] # 网络A2
+# mlp_struct = [64, 64, 64, 64, 2] # 网络A3
+# mlp_struct = [64, 16, 2] # 网络B1
+# mlp_struct = [64, 16, 16, 2] # 网络B2
+# mlp_struct = [64, 16, 16, 16, 2] # 网络B3
 mlp_struct = [1024, 256, 64, 16, 2]
 
 def model_construct(input_size):
@@ -31,8 +44,9 @@ def train():
 
     model.fit(xt, yt, 
         validation_data = (xe, ye), 
-        epochs = 10, 
-        batch_size = 128)
+        epochs = 50, 
+        batch_size = 128, 
+        callbacks = [EarlyStopping(monitor = "val_accuracy", patience = 3)])
 
     p = lambda x: model.predict(x)
 
@@ -66,7 +80,6 @@ def vec2cat(arr):
     return cat_list
 
 if __name__ == "__main__": 
-    begin = time()
     plc = train()
 
     plc.save(file_name)
