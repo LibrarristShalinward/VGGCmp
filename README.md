@@ -1,10 +1,22 @@
 # VGGCmp
- 基于VGGFace实现的人脸识别认证网络
+本项目以VGGFace为基础构建了一个用于实现面部特征认证的二分类网络。项目的核心工作在于，立足于VGGFace所采用的度量学习方法造成的缺陷，构建了一个鲁棒性更强的、根据VGGFace产生的特征向量（或嵌入空间向量）实现面部信息比对的全连接网络。
 
-# VGGFace
+# 运行环境
+代码环境：
+- Win10
+- Python 3.7.9
+
+安装python依赖（详见[`requirements`](requirements)）
+```
+pip install requirements
+```
+
+# 实现基础：VGGFace
 VGGFace是牛津大学视觉几何团队联合Google在其先前开发的图像分类网络VGGNet的基础上设计的面部图像分类算法。该算法的创新点主要有二：其一是VGGFace继承了VGGNet在图像分类领域的优秀表现，其二是将度量学习（metric learning）的思想应用于面部特征的比较判定。VGGFace网络在其所采用的两个数据集（LFW-Labeled Faces in the Wild与YFD-YouTube Faces Dataset）上均取得了97%以上的正确率。
 ![](./附图/VGGFaceAcc.png)
 （图片来源：[牛津大学VGG Face Descriptor官网](https://www.robots.ox.ac.uk/~vgg/software/vgg_face/)）
+（本项目中的VGGFace的keras实现来自[https://github.com/rcmalli/keras-vggface.git](https://github.com/rcmalli/keras-vggface.git)）
+
 
 ## VGGNet
 VGGNet是一套由AlexNet发展而来的网络，该套网络中具有最佳表现的是分别有16和19个可训练层的VGGNet16与VGGNet19。值得一提的是，该网络获得了2014年ILSVRC竞赛的亚军（当年冠军为GoogleNet）。VGGNet体系下各网络的结构及参数规模如下：
@@ -123,4 +135,43 @@ PibFig数据集的具体指标如下：
    python vec_shuffle.py
    ```
    训练集与测试集将分别保存在`./dataset/VGGvectors/train.bin`与``./dataset/VGGvectors/eval.bin``
-   
+
+# 嵌入空间向量对分析
+在本项目中，采用了阈值判定、SVM二分类与MLP二分类三种方案来实现。其准确率与运行时间如下表所示
+## 关于分析方法
+|方法|准确率（测试集）|运行时间（5000组数据，不含VGGFace运行）|
+|:--:|:--:|:--:|
+|欧氏空间距离|43.92%|0.05s|
+|SVM|41.88%|0.15s|
+|MLP|74.78%|0.77s|
+
+其中，MLP网络结构如下：
+![](./附图/mlp.h5.png)
+复现上述模型训练过程的命令为（主文件夹下）：
+```
+python authen/euclid.py
+python authen/svm.py
+python authen/mlp.py
+```
+其中mlp训练将自动导出命名为日期与时间的`.h5`模型。已训练好的模型见`./authen/G3.h5`。
+## 关于MLP网络的结构
+|网络编号|O|G1|G2|G3|G4|G5|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|网络结构|5244<br>2|5244<br>8<br>2|5244<br>16<br>2|5244<br>64<br>2|5244<br>256<br>2|5244<br>1024<br>2|
+|模型大小（M）|0.14|0.52|1.01|3.96|15.77|62.99|
+|准确率|47.36%|69.24%|72.52%|75.90%|75.76%|76.00%|
+|运行时间|0.19s|0.21|0.22s|0.24|0.34s|0.70s|
+
+|网络编号|A1|A2|A3|
+|:--:|:--:|:--:|:--:|
+|网络结构|5244<br>64<br>64<br>2|5244<br>64<br>64<br>64<br>2|5244<br>64<br>64<br>64<br>64<br>2|
+|模型大小（M）|4.01|4.08|4.14|
+|准确率|75.04%|73.04%|74.36%|
+|运行时间|0.23s|0.27s|0.27s|
+
+|网络编号|B1|B2|B3|
+|:--:|:--:|:--:|:--:|
+|网络结构|5244<br>64<br>16<br>2|5244<br>64<br>16<br>16<br>2|5244<br>64<br>16<br>16<br>16<br>2|
+|模型大小（M）|3.98|4.00|4.01|
+|准确率|73.86%|74.78%|73.04%|
+|运行时间|0.24|0.25|0.27|

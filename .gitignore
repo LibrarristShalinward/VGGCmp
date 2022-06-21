@@ -4,3 +4,4 @@ dataset/eval/*.jpg
 VGGFace/origin_VGG_Face.hd5
 dataset/VGGVectors/*.bin
 *.ipynb
+*.pyc

@@ -3,45 +3,8 @@ import numpy as np
 import pickle
 
 from tqdm import tqdm
-# import csv
 
-# person_num = 140
-# set_num = 2000
-# same_ration = .2
-# file_name = "eval_index.csv"
-
-# rand_index = lambda: randint(1, person_num+1) * 100 + randint(0, 9)
-# rand_same_index = lambda index: index - index % 100 + randint(0, 9)
-
-
-
-# def rand_diff_index(index):
-#     a = randint(1, person_num+1)
-#     while a == int(index/100): a = randint(1, person_num+1)
-#     return a * 100 + randint(0, 9)
-
-# def rand_same_indexes(): 
-#     index = rand_index() 
-#     return [index, rand_same_index(index)]
-
-# def rand_diff_indexes(): 
-#     index = rand_index() 
-#     return [index, rand_diff_index(index)]
-
-
-
-# with open(file_name, "w", newline = "") as file:
-#     writer = csv.writer(file)
-#     for _ in range(person_num):
-#         if rand() < same_ration:
-#             index = rand_same_indexes()
-#             line = index + [1]
-#         else:
-#             index = rand_diff_indexes()
-#             line = index + [0]
-#         writer.writerow(line)
-
-def get_shuffle_idx(person_num = 60, set_num = 2000, same_ration = .2): 
+def get_shuffle_idx(person_num = 60, set_num = 20000, same_ration = .4): 
     idx_stack = []
 
     rand_index = lambda: randint(0, person_num - 1) * 10 + randint(0, 9)
@@ -69,8 +32,6 @@ def get_shuffle_idx(person_num = 60, set_num = 2000, same_ration = .2):
             index = rand_diff_indexes()
             line = index + [0]
         idx_stack.append(line)
-    
-    # print(len(idx_stack[0]))
     return idx_stack
 
 
@@ -89,13 +50,13 @@ def stack2set(dataset, stack):
 
 
 if __name__ == "__main__": 
-    idxes = get_shuffle_idx()
+    idxes = get_shuffle_idx(60, 20000, .5)
     with open("VGGvectors/PubTrain.bin", "rb") as f: 
         data = pickle.load(f)
     with open("VGGvectors/train.bin", "wb") as f: 
         pickle.dump(stack2set(data, idxes), f)
     
-    idxes = get_shuffle_idx(140, 500, .6)
+    idxes = get_shuffle_idx(140, 5000, .4)
     with open("VGGvectors/PubEval.bin", "rb") as f: 
         data = pickle.load(f)
     with open("VGGvectors/eval.bin", "wb") as f: 

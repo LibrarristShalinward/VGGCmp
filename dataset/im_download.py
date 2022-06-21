@@ -1,5 +1,4 @@
 from PIL import Image
-# from im_preccessor import photo_scaled_reshape
 import csv
 import requests
 from os import remove
