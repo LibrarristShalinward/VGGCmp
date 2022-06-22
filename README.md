@@ -64,13 +64,13 @@ $$L_{\pi}(a, a^+, a^-) = \sum_{(a, a^+, a^-)\in\mathbb{T}} {\text{ReLU} \left(
 针对以上问题，本项目给出的解决方案是将嵌入空间向量的比较方法由简单的空间距离阈值改为SVM、全连接神经网络等相对简易的机器学习方法，以克服原有嵌入空间的各向异性，并实现嵌入空间特征的压缩。即：**训练一个以VGGFace输出对（以下称为VGG向量对）为输入、匹配/不匹配二分类为输出的机器学习模型**。
 
 # 数据集
-本项目使用哥伦比亚大学PibFig公众人物人脸数据集进行训练与测试。本节将主要介绍数据集的基本情况及获取方法。
+本项目使用哥伦比亚大学PubFig公众人物人脸数据集进行训练与测试。本节将主要介绍数据集的基本情况及获取方法。
 
 ## 数据集简介
-PibFig数据集的简介如下：
+PubFig数据集的简介如下：
 > The PubFig database is a large, real-world face dataset consisting of 58,797 images of 200 people collected from the internet. Unlike most other existing face datasets, these images are taken in completely uncontrolled situations with non-cooperative subjects. 
 
-PibFig数据集的具体指标如下：
+PubFig数据集的具体指标如下：
 - 数据集用途：人脸识别、人脸目标检测等
 - 数据集呈现形式：图片来源url
 - 数据集表项：
@@ -114,12 +114,12 @@ PibFig数据集的具体指标如下：
 - 数据集项：拼接为一个向量的VGG向量对+匹配/不匹配二分类向量
 - 训练集参数：
   - 图片来源：PubFig训练集
-  - 数据量：2000
-  - 匹配向量对比例：20%
+  - 数据量：20000
+  - 匹配向量对比例：50%
 - 测试集参数：
   - 图片来源：PubFig测试集
-  - 数据量：500
-  - 匹配向量对比例：60%
+  - 数据量：5000
+  - 匹配向量对比例：40%
 上述训练集与测试集可通过如下命令获得：
 1. 回到VGGCmp目录
 2. 获取VGG向量（保存在`./dataset/VGGvectors/PubTrain.bin`与`./dataset/VGGvectors/PubEval.bin`）：
