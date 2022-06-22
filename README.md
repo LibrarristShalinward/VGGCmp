@@ -82,6 +82,7 @@ PubFig数据集的具体指标如下：
 - 数据集大小：
   - 训练集：60人-共16336张图片
   - 测试集：140人-共42461张图片
+
 原生数据集相关文件详见[原生数据文件夹`./dataset/PubFig`](./dataset/PubFig)及[原数据集官网](https://www.cs.columbia.edu/CAVE/databases/pubfig/download/)
 
 ## 数据集压缩
@@ -120,6 +121,7 @@ PubFig数据集的具体指标如下：
   - 图片来源：PubFig测试集
   - 数据量：5000
   - 匹配向量对比例：40%
+
 上述训练集与测试集可通过如下命令获得：
 1. 回到VGGCmp目录
 2. 获取VGG向量（保存在`./dataset/VGGvectors/PubTrain.bin`与`./dataset/VGGvectors/PubEval.bin`）：
@@ -143,7 +145,7 @@ PubFig数据集的具体指标如下：
 |:--:|:--:|:--:|
 |欧氏空间距离|43.92%|0.05s|
 |SVM|41.88%|0.15s|
-|MLP|74.78%|0.77s|
+|MLP|75.90%|0.24s|
 
 其中，MLP网络结构如下：
 ![](./附图/mlp.h5.png)
